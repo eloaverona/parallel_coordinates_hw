@@ -1,11 +1,15 @@
 TableReader cars;
 TableReader cameras;
 
+int numOfAttributes;
+
+
 void setup(){
   size(980, 650);
   pixelDensity(displayDensity());
   cars = new TableReader("cars-cleaned.tsv");
   cameras = new TableReader("cameras-cleaned.tsv");
+  numOfAttributes = cars.headers.length;
 }
 
 void draw(){
@@ -13,15 +17,17 @@ void draw(){
   drawAxis();
   int numOfAttributes = cars.headers.length;
   float gap = (width*0.9)/numOfAttributes;
-   for(int i = 0; i < cars.table.getRowCount(); i++){
-     TableRow row = cars.table.getRow(i);
+   //for(int i = 0; i < cars.table.getRowCount(); i++){
+     
+     TableRow row = cars.table.getRow(0);
      for(int j = 1; j < cars.headers.length; j++){
        float val = row.getFloat(cars.headers[j]);
+       //print(val+"   ");
        Float[] maxmin = cars.getMinAndMaxFromColumn(cars.headers[j]);
-       text("-",i*gap + 30 , calculateYPos(590, maxmin[0], maxmin[1], val));
+       text("----"+val,j*gap+30, calculateYPos(590, maxmin[0], maxmin[1], val));
      }  
         
-    }
+    
 }
 
 void drawAxis(){
@@ -29,7 +35,6 @@ void drawAxis(){
   //TODO: fix the labels
   //TODO: create variable to toggle between datasets
 
-  int numOfAttributes = cars.headers.length;
   float gap = (width*0.9)/numOfAttributes;
   float line_height = height * 0.9;
   float r = 0;
@@ -40,13 +45,18 @@ void drawAxis(){
     line(i*gap + 30, 30, i*gap + 30, 590);
     text(cars.headers[i], i*gap + 30, 610);
     Float[] maxmin = cars.getMinAndMaxFromColumn(cars.headers[i]);
-    text(maxmin[0], i*gap + 30, 25);
-    text(maxmin[1], i*gap + 30, 620);
+    //min
+    text(maxmin[0], i*gap + 30, 620);
+    //max
+    text(maxmin[1], i*gap + 30, 25);
    
   } 
 }
 
 float calculateYPos(float lineHeight, float minVal, float maxVal, float val){
-  float pos = ((maxVal - minVal)/lineHeight) * val;
+  float pos = 30 + lineHeight - (((val)/(maxVal-minVal))*lineHeight);
+  //5140.0 - 1613.0 = 3525 / 590 = 5.97 
+  print("    "+maxVal+" "+minVal);
+  //-20356.793
   return pos;
 }
