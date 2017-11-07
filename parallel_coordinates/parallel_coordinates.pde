@@ -2,6 +2,7 @@ TableReader cars;
 TableReader cameras;
 
 int numOfAttributes;
+float line_height;
 
 
 void setup(){
@@ -24,8 +25,9 @@ void draw(){
        float val = row.getFloat(cars.headers[j]);
        //print(val+"   ");
        Float[] maxmin = cars.getMinAndMaxFromColumn(cars.headers[j]);
-       text("----"+val,j*gap+30, calculateYPos(590, maxmin[0], maxmin[1], val));
+       text("----"+val,j*gap+30, calculateYPos(line_height, maxmin[0], maxmin[1], val));
      }  
+   //}
         
     
 }
@@ -36,7 +38,7 @@ void drawAxis(){
   //TODO: create variable to toggle between datasets
 
   float gap = (width*0.9)/numOfAttributes;
-  float line_height = height * 0.9;
+  line_height = 590;
   float r = 0;
   textSize(10);
   textAlign(CENTER, BOTTOM);
@@ -54,7 +56,7 @@ void drawAxis(){
 }
 
 float calculateYPos(float lineHeight, float minVal, float maxVal, float val){
-  float pos = 30 + lineHeight - (((val)/(maxVal-minVal))*lineHeight);
+  float pos = 30 + (((maxVal-val)/(maxVal-minVal))*lineHeight);
   //5140.0 - 1613.0 = 3525 / 590 = 5.97 
   print("    "+maxVal+" "+minVal);
   //-20356.793
