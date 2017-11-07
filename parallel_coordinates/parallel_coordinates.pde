@@ -25,7 +25,7 @@ void draw(){
        float val = row.getFloat(cars.headers[j]);
        //print(val+"   ");
        Float[] maxmin = cars.getMinAndMaxFromColumn(cars.headers[j]);
-       text("----"+val,j*gap+30, calculateYPos(line_height, maxmin[0], maxmin[1], val));
+       text("----"+val,j*gap+30, calculateYPos(line_height-30, maxmin[0], maxmin[1], val));
      }  
    //}
         
@@ -56,7 +56,7 @@ void drawAxis(){
 }
 
 float calculateYPos(float lineHeight, float minVal, float maxVal, float val){
-  float pos = 30 + (((maxVal-val)/(maxVal-minVal))*lineHeight);
+  float pos = 35 + (((maxVal-val)/(maxVal-minVal))*lineHeight);
   //5140.0 - 1613.0 = 3525 / 590 = 5.97 
   print("    "+maxVal+" "+minVal);
   //-20356.793
