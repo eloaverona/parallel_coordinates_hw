@@ -32,6 +32,7 @@ void drawAxis(){
   int numOfAttributes = cars.headers.length;
   float gap = (width*0.9)/numOfAttributes;
   float line_height = height * 0.9;
+  float r = 0;
   textSize(10);
   textAlign(CENTER, BOTTOM);
   fill(0);
