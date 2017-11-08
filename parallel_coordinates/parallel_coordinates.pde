@@ -18,16 +18,24 @@ void draw(){
   drawAxis();
   int numOfAttributes = cars.headers.length;
   float gap = (width*0.9)/numOfAttributes;
-   //for(int i = 0; i < cars.table.getRowCount(); i++){
+   for(int i = 0; i < cars.table.getRowCount(); i++){
      
-     TableRow row = cars.table.getRow(0);
+     TableRow row = cars.table.getRow(i);
      for(int j = 1; j < cars.headers.length; j++){
        float val = row.getFloat(cars.headers[j]);
        //print(val+"   ");
        Float[] maxmin = cars.getMinAndMaxFromColumn(cars.headers[j]);
-       text("----"+val,j*gap+30, calculateYPos(line_height-30, maxmin[0], maxmin[1], val));
+       //text("-",j*gap+30, calculateYPos(line_height-30, maxmin[0], maxmin[1], val));
+       
+       if(j < cars.headers.length-1){
+         float val2 = row.getFloat(cars.headers[j+1]);
+         Float[] maxmin2 = cars.getMinAndMaxFromColumn(cars.headers[j+1]);
+         line(j*gap+30, calculateYPos(line_height-30, maxmin[0], maxmin[1], val), (j+1)*gap+30, calculateYPos(line_height-30, maxmin2[0], maxmin2[1], val2));
+       }
+       
+
      }  
-   //}
+   }
         
     
 }
@@ -56,7 +64,7 @@ void drawAxis(){
 }
 
 float calculateYPos(float lineHeight, float minVal, float maxVal, float val){
-  float pos = 35 + (((maxVal-val)/(maxVal-minVal))*lineHeight);
+  float pos = 30 + (((maxVal-val)/(maxVal-minVal))*lineHeight);
   //5140.0 - 1613.0 = 3525 / 590 = 5.97 
   print("    "+maxVal+" "+minVal);
   //-20356.793
