@@ -1,5 +1,6 @@
 TableReader cars;
 TableReader cameras;
+Column[] columns;
 
 int numOfAttributes;
 float line_height;
@@ -11,6 +12,7 @@ void setup(){
   cars = new TableReader("cars-cleaned.tsv");
   cameras = new TableReader("cameras-cleaned.tsv");
   numOfAttributes = cars.headers.length;
+  
 }
 
 void draw(){
@@ -47,26 +49,26 @@ void drawAxis(){
 
   float gap = (width*0.9)/numOfAttributes;
   line_height = 590;
-  float r = 0;
+  //float r = 0;
   textSize(10);
   textAlign(CENTER, BOTTOM);
   fill(0);
   for(int i = 1; i < numOfAttributes; i++){
-    line(i*gap + 30, 30, i*gap + 30, 590);
-    text(cars.headers[i], i*gap + 30, 610);
+    //line(i*gap + 30, 30, i*gap + 30, 590);
+    //text(cars.headers[i], i*gap + 30, 610);
     Float[] maxmin = cars.getMinAndMaxFromColumn(cars.headers[i]);
     //min
-    text(maxmin[0], i*gap + 30, 620);
+    //text(maxmin[0], i*gap + 30, 620);
     //max
-    text(maxmin[1], i*gap + 30, 25);
-   
+    //text(maxmin[1], i*gap + 30, 25);
+    columns.add(new Column(gap,numOfAttributes,line_height,i,maxmin));
   } 
 }
 
 float calculateYPos(float lineHeight, float minVal, float maxVal, float val){
   float pos = 30 + (((maxVal-val)/(maxVal-minVal))*lineHeight);
   //5140.0 - 1613.0 = 3525 / 590 = 5.97 
-  print("    "+maxVal+" "+minVal);
+  //print("    "+maxVal+" "+minVal);
   //-20356.793
   return pos;
 }
