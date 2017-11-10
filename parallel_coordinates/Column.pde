@@ -8,15 +8,15 @@ class Column {
   boolean over = false;
     
   // Create the bar
-  Column(float gap, int numOfAttributes, float line_height, int i, Float[] maxmin) {
+  Column(float gap, int numOfAttributes, float line_height, int i, Float[] maxmin, float line_start) {
 
     textSize(10);
     textAlign(CENTER, BOTTOM);
     fill(0);
 
-    line(i*gap + 30, 30, i*gap + 30, 590);
-    text(maxmin[0], i*gap + 30, 620);
-    text(maxmin[1], i*gap + 30, 25);
+    line(i*gap, line_start, i*gap, line_height);
+    text(maxmin[0], i*gap, line_height + 90);
+    text(maxmin[1], i*gap, line_start);
    
   } 
     
