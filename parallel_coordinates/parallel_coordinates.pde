@@ -1,18 +1,10 @@
-<<<<<<< HEAD
+
 TableReader data;
-<<<<<<< Updated upstream
+boolean useCars = false; //if not the cars dataset then it will be cameras
 
-
-boolean useCars = true;
-=======
-TableReader cars;
-TableReader cameras;
 Column[] columns;
->>>>>>> b8b13d59d98ee9b180a1a1cbb3b254786ec00215
 
-=======
-boolean useCars = true; //if not the cars dataset then it will be cameras
->>>>>>> Stashed changes
+
 int numOfAttributes;
 float line_height;
 float line_start;
@@ -24,31 +16,25 @@ RectangleModel rectModel;
 void setup(){
   size(1200, 700, P2D);
   pixelDensity(displayDensity());
-<<<<<<< HEAD
   if(useCars) {
       data = new TableReader("cars-cleaned.tsv");
   }else{
       data = new TableReader("cameras-cleaned.tsv");
   }  
-<<<<<<< Updated upstream
-  numOfAttributes = data.headers.length
-  columns = new Column[numOfAttributes];
-=======
-   rectModel = new RectangleModel();
   numOfAttributes = data.headers.length;
->>>>>>> Stashed changes
+  columns = new Column[numOfAttributes];
+
+  rectModel = new RectangleModel();
+ 
 }
 
 void draw(){
   background(255);
   drawAxis();
-<<<<<<< HEAD
-  int numOfAttributes = data.headers.length;
-=======
+
   //int numOfAttributes = cars.headers.length;
->>>>>>> b8b13d59d98ee9b180a1a1cbb3b254786ec00215
   float gap = (width*0.9)/numOfAttributes;
-   for(int i = 1; i < data.table.getRowCount(); i++){
+   for(int i = 0; i < data.table.getRowCount(); i++){
      TableRow row = data.table.getRow(i);
      for(int j = 1; j < data.headers.length; j++){
        float val = row.getFloat(data.headers[j]);
@@ -75,55 +61,24 @@ void draw(){
 }
 
 void drawAxis(){
-  //TODO: fix so there are not absolute variable, make everythin relative to screen size
-  //TODO: fix the labels
-  //TODO: create variable to toggle between datasets
-
+ 
   float gap = (width*0.9)/numOfAttributes;
-<<<<<<< Updated upstream
-  line_height = 590;
-=======
   line_start = height * 0.1;
   line_height = height*0.8;
->>>>>>> Stashed changes
   //float r = 0;
   textSize(10);
   textAlign(CENTER, BOTTOM);
   stroke(0);
   fill(0);
   for(int i = 1; i < numOfAttributes; i++){
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-    line(i*gap + 30, 30, i*gap + 30, 590);
-    text(data.headers[i], i*gap + 30, 610);
-=======
-    line(i*gap, line_start, i*gap, line_start + line_height);
+
     int extra = 15;
->>>>>>> Stashed changes
     Float[] maxmin = data.getMinAndMaxFromColumn(data.headers[i]);
-=======
-    //line(i*gap + 30, 30, i*gap + 30, 590);
-    //text(cars.headers[i], i*gap + 30, 610);
-    Float[] maxmin = cars.getMinAndMaxFromColumn(cars.headers[i]);
->>>>>>> b8b13d59d98ee9b180a1a1cbb3b254786ec00215
-    //min
-<<<<<<< Updated upstream
-    //text(maxmin[0], i*gap + 30, 620);
-    //max
-<<<<<<< HEAD
-    text(maxmin[1], i*gap + 30, 25);  
-=======
-    //text(maxmin[1], i*gap + 30, 25);
-    columns[i] = new Column(gap,numOfAttributes,line_height,i,maxmin);
->>>>>>> b8b13d59d98ee9b180a1a1cbb3b254786ec00215
-=======
-    text(maxmin[0], i*gap, line_start + line_height + extra);
-    //max
-    text(maxmin[1], i*gap, line_start - 10);     
+    columns[i] = new Column(gap,line_start, line_height ,i,maxmin, extra);
     if(i % 2 == 0) extra += 20;
     else extra += 10;
     text(data.headers[i], i*gap, line_start + line_height + extra);
->>>>>>> Stashed changes
+
   } 
 }
 
@@ -142,17 +97,13 @@ void drawAxis(){
 float calculateYPos( float minVal, float maxVal, float val){
   float pos = line_start + (((maxVal-val)/(maxVal-minVal))*line_height);
   //5140.0 - 1613.0 = 3525 / 590 = 5.97 
-<<<<<<< Updated upstream
-  //print("    "+maxVal+" "+minVal);
-=======
- // print("    "+maxVal+" "+minVal);
->>>>>>> Stashed changes
   //-20356.793
   return pos;
 }
 
 
   class RectangleModel
+  //class based on http://studio.sketchpad.cc/sp/pad/view/RgPVoxbKp3/rev.489.html?
 {
     PVector topLeft = new PVector();
     PVector bottomRight = new PVector();
