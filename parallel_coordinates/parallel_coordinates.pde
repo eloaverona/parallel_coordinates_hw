@@ -13,12 +13,14 @@ void setup(){
   cameras = new TableReader("cameras-cleaned.tsv");
   numOfAttributes = cars.headers.length;
   
+  columns = new Column[numOfAttributes];
+  
 }
 
 void draw(){
   background(255);
   drawAxis();
-  int numOfAttributes = cars.headers.length;
+  //int numOfAttributes = cars.headers.length;
   float gap = (width*0.9)/numOfAttributes;
    for(int i = 0; i < cars.table.getRowCount(); i++){
      
@@ -61,7 +63,7 @@ void drawAxis(){
     //text(maxmin[0], i*gap + 30, 620);
     //max
     //text(maxmin[1], i*gap + 30, 25);
-    columns.add(new Column(gap,numOfAttributes,line_height,i,maxmin));
+    columns[i] = new Column(gap,numOfAttributes,line_height,i,maxmin);
   } 
 }
 
