@@ -15,7 +15,7 @@ float gap;
 
 
 void setup(){
-  size(1200, 700, P2D);
+  size(800, 700, P2D);
   pixelDensity(displayDensity());
   if(useCars) {
       data = new TableReader("cars-cleaned.tsv");
@@ -67,16 +67,9 @@ void draw(){
 }
 
 void drawAxis(){
-  //TODO: fix so there are not absolute variable, make everythin relative to screen size
-  //TODO: fix the labels
-  //TODO: create variable to toggle between datasets
-
   float gap = (width*0.9)/numOfAttributes;
-
-  line_height = 590;
   line_start = height * 0.1;
   line_height = height*0.8;
-
   //float r = 0;
   textSize(10);
   textAlign(CENTER, BOTTOM);
@@ -84,20 +77,14 @@ void drawAxis(){
   fill(0);
   for(int i = 1; i < numOfAttributes; i++){
 
-    //line(i*gap + 30, 30, i*gap + 30, 590);
-    text(data.headers[i], i*gap, line_height + 110);
-
-    line(i*gap, line_start, i*gap, line_start + line_height);
     int extra = 15;
-
     Float[] maxmin = data.getMinAndMaxFromColumn(data.headers[i]);
+    columns[i] = new Column(gap,line_start, line_height ,i,maxmin, extra);
+    if(i % 2 == 0) extra += 20;
+    else extra += 10;
+    text(data.headers[i], i*gap, line_start + line_height + extra);
 
-    //line(i*gap + 30, 30, i*gap + 30, 590);
-    //text(cars.headers[i], i*gap + 30, 610);
-    //Float[] maxmin = cars.getMinAndMaxFromColumn(cars.headers[i]);
-    columns[i] = new Column(gap,numOfAttributes,line_height,i,maxmin, line_start);
-
-  } 
+} 
 }
 
     void mousePressed(){

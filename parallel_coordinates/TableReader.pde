@@ -9,12 +9,13 @@ class TableReader{
     String[] headers;
     String[] dataTypes;
     HashMap<String, Value[]> rows;
+    Column[] columns; 
     
     TableReader(String file_name){
       table = loadTable(file_name, "header, tsv");
       getHeadersFromFile();
       getRowsDict();
-      getColumnValues();
+      //getColumnValues();
     }
     
   
@@ -43,6 +44,7 @@ class TableReader{
     } 
     
   void getRowsDict(){
+    //Not being used yet
       rows = new HashMap<String, Value[]>(); 
       for(int i = 1; i < table.getRowCount(); i++){
         Value[] rowVals = new Value[headers.length-1];
@@ -70,30 +72,33 @@ class TableReader{
     }
   
   }
-  
-    HashMap<Float, ArrayList<String>> getColumnValues(){
-      String colName = "cylinders";
-      HashMap<Float, ArrayList<String>> colVals = new HashMap<Float, ArrayList<String>> ();
-      for(int i = 1; i < table.getRowCount(); i++){
-        TableRow row = table.getRow(i);
-        String name = row.getString(headers[0]);
-        Float val = row.getFloat(colName);
-        if(colVals.containsKey(val)){
-          colVals.get(val).add(name);
-        } else {
-           ArrayList<String> rowNames = new  ArrayList<String>();
-           rowNames.add(name);
-           colVals.put(val, rowNames);
-        }
-      }
-      for (Map.Entry me : colVals.entrySet()) {
-        print(me.getKey() + " is ");
-        ArrayList<String> rowNames = (ArrayList<String>) me.getValue();
-        for(int j = 0; j < rowNames.size(); j++){
-          println(rowNames.get(j));
-        }
-      }    
-      return colVals;
-     
-    }
+//  void createColumns(){
+    
+//  }
+//    HashMap<Value, ArrayList<String>> getColumnValues(String colName, String dataType){
+//      //Not being used yet
+//      //fix this
+//      HashMap<Value, ArrayList<String>> colVals = new HashMap<Value, ArrayList<String>> ();
+//      for(int i = 0; i < table.getRowCount(); i++){
+//        TableRow row = table.getRow(i);
+//        String name = row.getString(headers[0]);
+//        Float val = row.getFloat(colName);
+//        if(colVals.containsKey(val)){
+//          colVals.get(val).add(name);
+//        } else {
+//           ArrayList<String> rowNames = new  ArrayList<String>();
+//           rowNames.add(name);
+//           Value value = new Value(
+//           colVals.put(val, rowNames);
+//        }
+//      }
+//      for (Map.Entry me : colVals.entrySet()) {
+//        print(me.getKey() + " is ");
+//        ArrayList<String> rowNames = (ArrayList<String>) me.getValue();
+//        for(int j = 0; j < rowNames.size(); j++){
+//          println(rowNames.get(j));
+//        }
+//      }    
+//      return colVals;
+//    }
 }  
