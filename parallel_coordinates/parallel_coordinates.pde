@@ -1,5 +1,7 @@
-TableReader cars;
-TableReader cameras;
+TableReader data;
+
+
+boolean useCars = true;
 
 int numOfAttributes;
 float line_height;
@@ -8,36 +10,34 @@ float line_height;
 void setup(){
   size(980, 650);
   pixelDensity(displayDensity());
-  cars = new TableReader("cars-cleaned.tsv");
-  cameras = new TableReader("cameras-cleaned.tsv");
-  numOfAttributes = cars.headers.length;
+  if(useCars) {
+      data = new TableReader("cars-cleaned.tsv");
+    
+  }else{
+      data = new TableReader("cameras-cleaned.tsv");
+  }  
+  numOfAttributes = data.headers.length;
 }
 
 void draw(){
   background(255);
   drawAxis();
-  int numOfAttributes = cars.headers.length;
+  int numOfAttributes = data.headers.length;
   float gap = (width*0.9)/numOfAttributes;
-   for(int i = 0; i < cars.table.getRowCount(); i++){
-     
-     TableRow row = cars.table.getRow(i);
-     for(int j = 1; j < cars.headers.length; j++){
-       float val = row.getFloat(cars.headers[j]);
+   for(int i = 0; i < data.table.getRowCount(); i++){
+     TableRow row = data.table.getRow(i);
+     for(int j = 1; j < data.headers.length; j++){
+       float val = row.getFloat(data.headers[j]);
        //print(val+"   ");
-       Float[] maxmin = cars.getMinAndMaxFromColumn(cars.headers[j]);
-       //text("-",j*gap+30, calculateYPos(line_height-30, maxmin[0], maxmin[1], val));
-       
-       if(j < cars.headers.length-1){
-         float val2 = row.getFloat(cars.headers[j+1]);
-         Float[] maxmin2 = cars.getMinAndMaxFromColumn(cars.headers[j+1]);
+       Float[] maxmin = data.getMinAndMaxFromColumn(data.headers[j]);
+       if(j < data.headers.length-1){
+         float val2 = row.getFloat(data.headers[j+1]);
+         Float[] maxmin2 = data.getMinAndMaxFromColumn(data.headers[j+1]);
+         stroke(30, 20);
          line(j*gap+30, calculateYPos(line_height-30, maxmin[0], maxmin[1], val), (j+1)*gap+30, calculateYPos(line_height-30, maxmin2[0], maxmin2[1], val2));
        }
-       
-
      }  
-   }
-        
-    
+   }  
 }
 
 void drawAxis(){
@@ -50,16 +50,16 @@ void drawAxis(){
   float r = 0;
   textSize(10);
   textAlign(CENTER, BOTTOM);
+  stroke(0);
   fill(0);
   for(int i = 1; i < numOfAttributes; i++){
     line(i*gap + 30, 30, i*gap + 30, 590);
-    text(cars.headers[i], i*gap + 30, 610);
-    Float[] maxmin = cars.getMinAndMaxFromColumn(cars.headers[i]);
+    text(data.headers[i], i*gap + 30, 610);
+    Float[] maxmin = data.getMinAndMaxFromColumn(data.headers[i]);
     //min
     text(maxmin[0], i*gap + 30, 620);
     //max
-    text(maxmin[1], i*gap + 30, 25);
-   
+    text(maxmin[1], i*gap + 30, 25);  
   } 
 }
 

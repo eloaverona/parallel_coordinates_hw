@@ -6,7 +6,6 @@ class TableReader{
     Table table;
     String[] headers;
     
-    
     TableReader(String file_name){
       table = loadTable(file_name, "header, tsv");
       headers = getHeadersFromFile();
