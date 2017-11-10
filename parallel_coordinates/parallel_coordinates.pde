@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 TableReader data;
 
 TableReader cars;
@@ -5,6 +6,15 @@ TableReader cameras;
 Column[] columns;
 
 boolean useCars = true; //if not the cars dataset then it will be cameras
+=======
+
+TableReader data;
+boolean useCars = false; //if not the cars dataset then it will be cameras
+
+Column[] columns;
+
+
+>>>>>>> 2bb776908bc8448773673c597a0749ab92f9af9a
 int numOfAttributes;
 float line_height;
 float line_start;
@@ -22,6 +32,7 @@ void setup(){
   }else{
       data = new TableReader("cameras-cleaned.tsv");
   }  
+<<<<<<< HEAD
 
   numOfAttributes = data.headers.length;
   columns = new Column[numOfAttributes];
@@ -29,18 +40,31 @@ void setup(){
    rectModel = new RectangleModel();
   numOfAttributes = data.headers.length;
 
+=======
+  numOfAttributes = data.headers.length;
+  columns = new Column[numOfAttributes];
+
+  rectModel = new RectangleModel();
+ 
+>>>>>>> 2bb776908bc8448773673c597a0749ab92f9af9a
 }
 
 void draw(){
   background(255);
   drawAxis();
 
+<<<<<<< HEAD
   int numOfAttributes = data.headers.length;
 
   //int numOfAttributes = cars.headers.length;
 
   gap = (width*0.9)/numOfAttributes;
    for(int i = 1; i < data.table.getRowCount(); i++){
+=======
+  //int numOfAttributes = cars.headers.length;
+  float gap = (width*0.9)/numOfAttributes;
+   for(int i = 0; i < data.table.getRowCount(); i++){
+>>>>>>> 2bb776908bc8448773673c597a0749ab92f9af9a
      TableRow row = data.table.getRow(i);
      for(int j = 1; j < data.headers.length; j++){
        float val = row.getFloat(data.headers[j]);
@@ -67,16 +91,18 @@ void draw(){
 }
 
 void drawAxis(){
-  //TODO: fix so there are not absolute variable, make everythin relative to screen size
-  //TODO: fix the labels
-  //TODO: create variable to toggle between datasets
-
+ 
   float gap = (width*0.9)/numOfAttributes;
+<<<<<<< HEAD
 
   line_height = 590;
   line_start = height * 0.1;
   line_height = height*0.8;
 
+=======
+  line_start = height * 0.1;
+  line_height = height*0.8;
+>>>>>>> 2bb776908bc8448773673c597a0749ab92f9af9a
   //float r = 0;
   textSize(10);
   textAlign(CENTER, BOTTOM);
@@ -84,6 +110,7 @@ void drawAxis(){
   fill(0);
   for(int i = 1; i < numOfAttributes; i++){
 
+<<<<<<< HEAD
     //line(i*gap + 30, 30, i*gap + 30, 590);
     text(data.headers[i], i*gap, line_height + 110);
 
@@ -96,6 +123,14 @@ void drawAxis(){
     //text(cars.headers[i], i*gap + 30, 610);
     //Float[] maxmin = cars.getMinAndMaxFromColumn(cars.headers[i]);
     columns[i] = new Column(gap,numOfAttributes,line_height,i,maxmin, line_start);
+=======
+    int extra = 15;
+    Float[] maxmin = data.getMinAndMaxFromColumn(data.headers[i]);
+    columns[i] = new Column(gap,line_start, line_height ,i,maxmin, extra);
+    if(i % 2 == 0) extra += 20;
+    else extra += 10;
+    text(data.headers[i], i*gap, line_start + line_height + extra);
+>>>>>>> 2bb776908bc8448773673c597a0749ab92f9af9a
 
   } 
 }
@@ -114,12 +149,18 @@ void drawAxis(){
 
 float calculateYPos( float minVal, float maxVal, float val){
   float pos = line_start + (((maxVal-val)/(maxVal-minVal))*line_height);
+<<<<<<< HEAD
 
+=======
+  //5140.0 - 1613.0 = 3525 / 590 = 5.97 
+  //-20356.793
+>>>>>>> 2bb776908bc8448773673c597a0749ab92f9af9a
   return pos;
 }
 
 
   class RectangleModel
+  //class based on http://studio.sketchpad.cc/sp/pad/view/RgPVoxbKp3/rev.489.html?
 {
     PVector topLeft = new PVector();
     PVector bottomRight = new PVector();
