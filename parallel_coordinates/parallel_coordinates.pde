@@ -4,7 +4,7 @@ TableReader cars;
 TableReader cameras;
 Column[] columns;
 
-boolean useCars = true; //if not the cars dataset then it will be cameras
+boolean useCars = false; //if not the cars dataset then it will be cameras
 int numOfAttributes;
 float line_height;
 float line_start;
@@ -12,7 +12,7 @@ PVector beginCorner = new PVector();
 PVector endCorner = new PVector();
 RectangleModel rectModel;
 float gap;
-
+Column[] mutableOrderColumns;
 
 void setup(){
   size(800, 700, P2D);
@@ -28,6 +28,7 @@ void setup(){
 
    rectModel = new RectangleModel();
   numOfAttributes = data.headers.length;
+   mutableOrderColumns = data.columns;
 
 }
 
@@ -75,16 +76,16 @@ void drawAxis(){
   textAlign(CENTER, BOTTOM);
   stroke(0);
   fill(0);
-  for(int i = 1; i < numOfAttributes; i++){
-
+  print(mutableOrderColumns.length);
+  for(int i = 1; i < mutableOrderColumns.length; i++){
     int extra = 15;
-    Float[] maxmin = data.getMinAndMaxFromColumn(data.headers[i]);
-    columns[i] = new Column(gap,line_start, line_height ,i,maxmin, extra);
+    Column col = mutableOrderColumns[i];
+    col.draw(gap,line_start, line_height ,i, extra);
     if(i % 2 == 0) extra += 20;
     else extra += 10;
-    text(data.headers[i], i*gap, line_start + line_height + extra);
+    text(col.name, i*gap, line_start + line_height + extra);
 
-} 
+  } 
 }
 
     void mousePressed(){
@@ -101,7 +102,6 @@ void drawAxis(){
 
 float calculateYPos( float minVal, float maxVal, float val){
   float pos = line_start + (((maxVal-val)/(maxVal-minVal))*line_height);
-
   return pos;
 }
 
