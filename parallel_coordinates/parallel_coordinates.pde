@@ -59,14 +59,29 @@ void draw() {
 
   }
   drawAxis();
-
+  ArrayList<String> labelsToShow = new ArrayList<String>();
   for (int i = 1; i < data.table.getRowCount(); i++) {
+    color fillColor = #0000cd;
+    int w = 1;
+    int alpha = 20;
     TableRow row = data.table.getRow(i);
     String rowName = row.getString(data.headers[0]);
     if(data.rowsToShow.get(rowName)){
       for (int j = 1; j < mutableOrderColumns.length; j++) {
         Column col = mutableOrderColumns[j];
         float val = row.getFloat(col.name);
+        //strokeWeight(1);
+        if(j==1){
+            if(mouseX >= j*gap - 50 && mouseX <= j*gap + 50
+                && mouseY >= calculateYPos(col.minValue.valueFloat, col.maxValue.valueFloat, val) -1  
+                && mouseY <= calculateYPos(col.minValue.valueFloat, col.maxValue.valueFloat, val) + 1){
+                  fillColor = #ffd700; 
+                   alpha = 80;
+                  w = 5;
+                  labelsToShow.add(rowName);
+                    
+                }
+          }
         //print(val+"   ");
         //Float[] maxmin = data.getMinAndMaxFromColumn(data.headers[j]);
         if (j < data.headers.length-1) {
@@ -74,15 +89,25 @@ void draw() {
           float val2 = row.getFloat(col2.name);
           //float val2 = row.getFloat(data.headers[j+1]);
           //Float[] maxmin2 = data.getMinAndMaxFromColumn(data.headers[j+1]);
-          stroke(30, 20);
+          strokeWeight(w);
+          stroke(fillColor, alpha);
           line(j*gap, calculateYPos(col.minValue.valueFloat, col.maxValue.valueFloat, val), (j+1)*gap, 
           calculateYPos(col2.minValue.valueFloat, col2.maxValue.valueFloat, val2));
+          
         }
       }
     }
 
 }
 //updateRowsToShow();
+drawLabelsToShow(labelsToShow);
+}
+
+void drawLabelsToShow(ArrayList<String> labels){
+  for (int j = 0; j < labels.size(); j++) {
+    textAlign(LEFT, BOTTOM);
+      text(labels.get(j), 1000, (j*20) + 80);
+  }
 
 }
 

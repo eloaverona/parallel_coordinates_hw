@@ -40,10 +40,11 @@ class Column {
   } 
 
   void draw(float gap, float line_start, float line_height, int i, int extra) {
-    textSize(10);
+    textSize(13);
     textAlign(CENTER, BOTTOM);
     fill(0);
     stroke(0);
+     strokeWeight(2);
     x1 = i*gap;
     x2 = x1;
     y1 = line_start;
@@ -118,7 +119,7 @@ class Column {
     }  
     //print(":FDASFASDAFDSAFSD");
     if (mousePressed && !mouseDragged) {
-       print(":FDASFASDAFDSAFSD");
+     
       if (withinAreaOfCol()) {
         
         if(areaSelected) {
