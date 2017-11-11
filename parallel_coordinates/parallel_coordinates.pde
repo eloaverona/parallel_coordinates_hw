@@ -15,7 +15,7 @@ float gap;
 Column[] mutableOrderColumns;
 
 void setup(){
-  size(800, 700, P2D);
+  size(800, 800, P2D);
   pixelDensity(displayDensity());
   if(useCars) {
       data = new TableReader("cars-cleaned.tsv");
@@ -65,6 +65,26 @@ void draw(){
          stroke(255, 0,0, 20);
          rect(topLeft.x, topLeft.y, bottomRight.x, bottomRight.y);
   }
+  
+  for(int i = 0; i < mutableOrderColumns.length; i++){
+
+    mutableOrderColumns[i].rollover(mouseX,mouseY);
+    if(i < mutableOrderColumns.length-1 && mutableOrderColumns[i].Right == true){
+      Column switchee = mutableOrderColumns[i+1];
+      Column switcher = mutableOrderColumns[i];
+      
+      columns[i] = switcher;
+      columns[i+1] = switchee;
+      
+    } else if(i> 1 && mutableOrderColumns[i].Left == true) {
+      Column switchee = mutableOrderColumns[i-1];
+      Column switcher = mutableOrderColumns[i];
+      
+      mutableOrderColumns[i] = switcher;
+      mutableOrderColumns[i-1] = switchee;
+    } else {
+    }
+  }
 }
 
 void drawAxis(){
@@ -76,14 +96,14 @@ void drawAxis(){
   textAlign(CENTER, BOTTOM);
   stroke(0);
   fill(0);
-  print(mutableOrderColumns.length);
+  //print(mutableOrderColumns);
   for(int i = 1; i < mutableOrderColumns.length; i++){
     int extra = 15;
     Column col = mutableOrderColumns[i];
     col.draw(gap,line_start, line_height ,i, extra);
-    if(i % 2 == 0) extra += 20;
-    else extra += 10;
-    text(col.name, i*gap, line_start + line_height + extra);
+    //if(i % 2 == 0) extra += 20;
+    //else extra += 10;
+    //text(col.name, i*gap, line_start + line_height + extra);
 
   } 
 }
