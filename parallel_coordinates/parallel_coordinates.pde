@@ -36,19 +36,27 @@ void draw() {
     mutableOrderColumns[i].rollover(mouseX,mouseY);
     if(i < mutableOrderColumns.length-1 && mutableOrderColumns[i].Right == true){
       Column switchee = mutableOrderColumns[i+1];
-      Column switcher = mutableOrderColumns[i];
       
-      mutableOrderColumns[i] = switcher;
-      mutableOrderColumns[i+1] = switchee;
+      mutableOrderColumns[i+1] = mutableOrderColumns[i];
+      mutableOrderColumns[i] = switchee;
+      mutableOrderColumns[i].Right = false;
+      mutableOrderColumns[i].Left = false;
+      
+      
       
     } else if(i> 1 && mutableOrderColumns[i].Left == true) {
       Column switchee = mutableOrderColumns[i-1];
-      Column switcher = mutableOrderColumns[i];
       
-      mutableOrderColumns[i] = switcher;
-      mutableOrderColumns[i-1] = switchee;
-    } else {
+      mutableOrderColumns[i-1] = mutableOrderColumns[i];
+      mutableOrderColumns[i] = switchee;
+      mutableOrderColumns[i].Right = false;
+      mutableOrderColumns[i].Left = false;
+      
+
     }
+    mutableOrderColumns[i].Right = false;
+    mutableOrderColumns[i].Left = false;
+
   }
   drawAxis();
 
