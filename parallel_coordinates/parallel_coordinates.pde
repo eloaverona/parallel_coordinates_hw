@@ -64,15 +64,19 @@ void draw() {
     TableRow row = data.table.getRow(i);
     String rowName = row.getString(data.headers[0]);
     if(data.rowsToShow.get(rowName)){
-      for (int j = 1; j < data.headers.length; j++) {
-        float val = row.getFloat(data.headers[j]);
+      for (int j = 1; j < mutableOrderColumns.length; j++) {
+        Column col = mutableOrderColumns[j];
+        float val = row.getFloat(col.name);
         //print(val+"   ");
-        Float[] maxmin = data.getMinAndMaxFromColumn(data.headers[j]);
+        //Float[] maxmin = data.getMinAndMaxFromColumn(data.headers[j]);
         if (j < data.headers.length-1) {
-          float val2 = row.getFloat(data.headers[j+1]);
-          Float[] maxmin2 = data.getMinAndMaxFromColumn(data.headers[j+1]);
+          Column col2 = mutableOrderColumns[j+1];
+          float val2 = row.getFloat(col2.name);
+          //float val2 = row.getFloat(data.headers[j+1]);
+          //Float[] maxmin2 = data.getMinAndMaxFromColumn(data.headers[j+1]);
           stroke(30, 20);
-          line(j*gap, calculateYPos(maxmin[0], maxmin[1], val), (j+1)*gap, calculateYPos(maxmin2[0], maxmin2[1], val2));
+          line(j*gap, calculateYPos(col.minValue.valueFloat, col.maxValue.valueFloat, val), (j+1)*gap, 
+          calculateYPos(col2.minValue.valueFloat, col2.maxValue.valueFloat, val2));
         }
       }
     }
