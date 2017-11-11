@@ -34,6 +34,25 @@ void setup(){
 
 void draw(){
   background(255);
+    for(int i = 0; i < mutableOrderColumns.length; i++){
+
+    mutableOrderColumns[i].rollover(mouseX,mouseY);
+    if(i < mutableOrderColumns.length-1 && mutableOrderColumns[i].Right == true){
+      Column switchee = mutableOrderColumns[i+1];
+      Column switcher = mutableOrderColumns[i];
+      
+      columns[i] = switcher;
+      columns[i+1] = switchee;
+      
+    } else if(i> 1 && mutableOrderColumns[i].Left == true) {
+      Column switchee = mutableOrderColumns[i-1];
+      Column switcher = mutableOrderColumns[i];
+      
+      mutableOrderColumns[i] = switcher;
+      mutableOrderColumns[i-1] = switchee;
+    } else {
+    }
+  }
   drawAxis();
 
   int numOfAttributes = data.headers.length;
@@ -66,25 +85,6 @@ void draw(){
          rect(topLeft.x, topLeft.y, bottomRight.x, bottomRight.y);
   }
   
-  for(int i = 0; i < mutableOrderColumns.length; i++){
-
-    mutableOrderColumns[i].rollover(mouseX,mouseY);
-    if(i < mutableOrderColumns.length-1 && mutableOrderColumns[i].Right == true){
-      Column switchee = mutableOrderColumns[i+1];
-      Column switcher = mutableOrderColumns[i];
-      
-      columns[i] = switcher;
-      columns[i+1] = switchee;
-      
-    } else if(i> 1 && mutableOrderColumns[i].Left == true) {
-      Column switchee = mutableOrderColumns[i-1];
-      Column switcher = mutableOrderColumns[i];
-      
-      mutableOrderColumns[i] = switcher;
-      mutableOrderColumns[i-1] = switchee;
-    } else {
-    }
-  }
 }
 
 void drawAxis(){
