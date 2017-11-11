@@ -73,36 +73,21 @@ class Column {
     
     
     
-  
-  // Checking if mouse is over the bar
-  void rollover(float px, float py) {
-    if (px >= x1 - 10 && py >= y1 - 10 && px <= x1 + textWidth(name) + 10 && py <= y1 + 20) {
-      over = true; 
-      fill(highlightColor);
-      rect(x1, line_height + 110, 500 , 30);
-      keyPressed();
-      
-    } else {
-      over = false;
-    }
-  }
-  
   void keyPressed() {
   if (key == CODED) {
-    if (keyCode == RIGHT) {
-      fill(0,0,255);
-      rect(x1, y1, 50 , 30);
+    if (keyCode == RIGHT && mouseX >= x1 - 10 && mouseY >= y1 - 10 && mouseX <= x1 + textWidth(name) + 10 && mouseY <= y1 + 20) {
       Right = true;
-    } else if (keyCode == LEFT) {
-      fill(0,255,0);
-      rect(x1, y1, 50 , 30);
+      keyReleased();
+
+    } 
+    if (keyCode == LEFT && mouseX >= x1 - 10 && mouseY >= y1 - 10 && mouseX <= x1 + textWidth(name) + 10 && mouseY <= y1 + 20) {
       Left = true;
-    } else {
+      keyReleased();
     }
+  
   }
   
  }
-  
 
  
 

@@ -33,29 +33,44 @@ void draw() {
   background(255);
     for(int i = 0; i < mutableOrderColumns.length; i++){
 
-    mutableOrderColumns[i].rollover(mouseX,mouseY);
-    if(i < mutableOrderColumns.length-1 && mutableOrderColumns[i].Right == true){
-      Column switchee = mutableOrderColumns[i+1];
+      if(keyPressed){
+        mutableOrderColumns[i].keyPressed();
+        if(i > 1 && mutableOrderColumns[i].Left) {
       
-      mutableOrderColumns[i+1] = mutableOrderColumns[i];
-      mutableOrderColumns[i] = switchee;
-      mutableOrderColumns[i].Right = false;
-      mutableOrderColumns[i].Left = false;
+        Column switchee = mutableOrderColumns[i];
       
+        mutableOrderColumns[i] = mutableOrderColumns[i-1];
+        mutableOrderColumns[i-1] = switchee;
       
-      
-    } else if(i> 1 && mutableOrderColumns[i].Left == true) {
-      Column switchee = mutableOrderColumns[i-1];
-      
-      mutableOrderColumns[i-1] = mutableOrderColumns[i];
-      mutableOrderColumns[i] = switchee;
-      mutableOrderColumns[i].Right = false;
-      mutableOrderColumns[i].Left = false;
-      
+        mutableOrderColumns[i].Right = false;
+        mutableOrderColumns[i].Left = false;
+        mutableOrderColumns[i-1].Left = false;
+        mutableOrderColumns[i-1].Right = false;
+        
 
-    }
-    mutableOrderColumns[i].Right = false;
-    mutableOrderColumns[i].Left = false;
+        break;
+      } 
+        else if(i < mutableOrderColumns.length-1 && mutableOrderColumns[i].Right){
+      
+        Column switchee = mutableOrderColumns[i+1];
+      
+        mutableOrderColumns[i+1] = mutableOrderColumns[i];
+        mutableOrderColumns[i] = switchee;
+      
+        mutableOrderColumns[i].Right = false;
+        mutableOrderColumns[i].Left = false;
+        mutableOrderColumns[i+1].Right = false;
+        mutableOrderColumns[i+1].Left = false;
+
+      
+        break;
+      
+        } 
+      
+      }
+    
+
+    //break;
 
   }
   drawAxis();
