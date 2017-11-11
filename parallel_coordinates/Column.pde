@@ -138,7 +138,7 @@ class Column {
 
     //println(mouseY + " " + line_start + " " +(line_start + line_height));
     //print(mouseX >= x1 - half_width && mouseX <= x1 + half_width && mouseY >= line_start  && mouseY <= line_start + line_height);
-    if (mouseX >= x1 - half_width && mouseX <= x1 + half_width
+    if (mouseX >= x1 - (half_width + 30) && mouseX <= x1 + (half_width+ 30)
       && mouseY >= line_start  && mouseY <= line_start + line_height) return true;
     else return false;
   }
