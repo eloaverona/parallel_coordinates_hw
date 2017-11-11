@@ -31,9 +31,7 @@ void setup() {
 
 void draw() {
   background(255);
-  drawAxis();
-
-  for(int i = 0; i < mutableOrderColumns.length; i++){
+    for(int i = 0; i < mutableOrderColumns.length; i++){
 
     mutableOrderColumns[i].rollover(mouseX,mouseY);
     if(i < mutableOrderColumns.length-1 && mutableOrderColumns[i].Right == true){
@@ -52,8 +50,7 @@ void draw() {
     } else {
     }
   }
-
-  
+  drawAxis();
 
   for (int i = 1; i < data.table.getRowCount(); i++) {
     TableRow row = data.table.getRow(i);
@@ -71,6 +68,7 @@ void draw() {
         }
       }
     }
+
 }
 //updateRowsToShow();
 
