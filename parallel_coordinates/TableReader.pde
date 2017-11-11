@@ -3,12 +3,11 @@
 */
   
 
-import java.util.Map;
 class TableReader{
     Table table;
     String[] headers;
     String[] dataTypes;
-    HashMap<String, Value[]> rows;
+    HashMap<String, Boolean> rowsToShow;
     Column[] columns; 
     TableReader(String file_name){
       table = loadTable(file_name, "header, tsv");
@@ -47,18 +46,10 @@ class TableReader{
     
   void getRowsDict(){
     //Not being used yet
-      rows = new HashMap<String, Value[]>(); 
+      rowsToShow = new HashMap<String, Boolean> (); 
       for(int i = 1; i < table.getRowCount(); i++){
-        Value[] rowVals = new Value[headers.length-1];
         TableRow row = table.getRow(i);
-            for(int j = 1; j < headers.length; j++){
-               String dataType = dataTypes[j];
-               float val = row.getFloat(headers[j]);
-               int val2 = row.getInt(headers[j]);
-               Value value = new Value(val, val2, dataType);
-               rowVals[j-1] = value;
-            }
-       rows.put(row.getString(headers[0]), rowVals);
+        rowsToShow.put(row.getString(headers[0]), true);
        // print(row.getString(headers[0]));
         //print(rowVals.length);
        //for(int k = 0; k < rowVals.length; k++) print(rowVals[k].valueFloat + " " + rowVals[k].valueInt);
